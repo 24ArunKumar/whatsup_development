@@ -5,3 +5,5 @@ Whats Up
 2)call page
 
 3)Whats up group
+
+4)status page
