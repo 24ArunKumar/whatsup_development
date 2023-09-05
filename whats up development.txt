@@ -9,3 +9,5 @@ Whats Up
 4)status page
 
 5)update video call
+
+6)status added by pradeep
