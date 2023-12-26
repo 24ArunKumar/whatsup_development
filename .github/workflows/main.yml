@@ -14,5 +14,6 @@ jobs:
         run: |
          pwd
       - name: "Run tests"
-        run: "newman run postman_collection.json -e postman_env.json -r htmlextra — reporter-htmlextra-export htmlreport.html  > runreport1.html"
+        run: "newman run postman_collection.json -e postman_env.json -r htmlextra --reporter-htmlextra-export htmlreport.html --verbose > runreport1.html
+"
 
