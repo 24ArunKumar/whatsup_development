@@ -5,11 +5,11 @@ jobs:
   test: 
     defaults: 
       run: 
-        working-directory: ./tests
+        working-directory: C:\Users\arunkumarb\Documents\DemoNewman\Newman-GitHub-Actions-Slack-Integration-Example\tests
     environment: staging
     name: "Run tests"
     runs-on: ubuntu-latest
     steps: 
       - 
         name: "Run tests"
-        run: "newman run DecReq.postman_collection.json ReqRes Dev.postman_environment.json -r htmlextra — reporter-htmlextra-export htmlreport.html  > runreport1.html"
+        run: "newman run Req.postman_collection.json -e Dev.postman_environment.json -r htmlextra — reporter-htmlextra-export htmlreport.html  > runreport1.html"
