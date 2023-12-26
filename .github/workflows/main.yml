@@ -5,7 +5,7 @@ jobs:
   test: 
     defaults: 
       run: 
-        working-directory: C:\Users\arunkumarb\Documents\DemoNewman\Newman-GitHub-Actions-Slack-Integration-Example\tests
+        working-directory: ''
     environment: staging
     name: "Run tests"
     runs-on: ubuntu-latest
