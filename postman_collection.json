@@ -1,0 +1,287 @@
+{
+	"info": {
+		"_postman_id": "b0e3faf7-f124-4e1d-8213-deaf3e89202d",
+		"name": "Req",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "23431610"
+	},
+	"item": [
+		{
+			"name": "LIST USERS",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"\r",
+							"pm.test(\"Response status code is 200\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(pm.response.code).to.equal(200);\r",
+							"    pm.expect(jsonData.data[0]).to.have.property('id');\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Content type is application/json\", function () {\r",
+							"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Data array in the response should exist and be an array\", function () {\r",
+							"  const responseData = pm.response.json();\r",
+							"\r",
+							"  pm.expect(responseData).to.be.an('object');\r",
+							"  pm.expect(responseData.data).to.exist.and.to.be.an('array');\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Email is in a valid format\", function () {\r",
+							"    const responseData = pm.response.json();\r",
+							"    \r",
+							"    pm.expect(responseData.data).to.be.an('array');\r",
+							"    responseData.data.forEach(function(user) {\r",
+							"        pm.expect(user.email).to.be.a('string').and.to.match(/^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/);\r",
+							"    });\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Support object contains expected fields\", function () {\r",
+							"    const responseData = pm.response.json();\r",
+							"    \r",
+							"    pm.expect(responseData).to.be.an('object');\r",
+							"    pm.expect(responseData.support).to.exist.and.to.be.an('object');\r",
+							"    pm.expect(responseData.support).to.have.property('url');\r",
+							"    pm.expect(responseData.support).to.have.property('text');\r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://reqres.in/api/users?page=2",
+					"protocol": "https",
+					"host": [
+						"reqres",
+						"in"
+					],
+					"path": [
+						"api",
+						"users"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "2"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "SINGLE USER",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"\r",
+							"pm.test(\"Response status code is 200\", function () {\r",
+							"  pm.expect(pm.response.code).to.equal(200);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Content-Type header is application/json\", function () {\r",
+							"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Email is in a valid format\", function () {\r",
+							"    const responseData = pm.response.json();\r",
+							"    \r",
+							"    pm.expect(responseData.data.email).to.be.a('string').and.to.match(/^.+@.+\\..+$/, \"Email format is not valid\");\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Support object is present and contains expected fields\", function () {\r",
+							"    const responseData = pm.response.json();\r",
+							"    \r",
+							"    pm.expect(responseData.support).to.exist;\r",
+							"    pm.expect(responseData.support).to.be.an('object');\r",
+							"    pm.expect(responseData.support.url).to.exist.and.to.be.a('string');\r",
+							"    pm.expect(responseData.support.text).to.exist.and.to.be.a('string');\r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://reqres.in/api/users/2",
+					"protocol": "https",
+					"host": [
+						"reqres",
+						"in"
+					],
+					"path": [
+						"api",
+						"users",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CREATE",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"\r",
+							"pm.test(\"Response status code is 201\", function () {\r",
+							"    pm.expect(pm.response.code).to.equal(201);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Response has the required fields - name, job, id, and createdAt\", function () {\r",
+							"    const responseData = pm.response.json();\r",
+							"    \r",
+							"    pm.expect(responseData).to.be.an('object');\r",
+							"    pm.expect(responseData).to.have.property('name');\r",
+							"    pm.expect(responseData).to.have.property('job');\r",
+							"    pm.expect(responseData).to.have.property('id');\r",
+							"    pm.expect(responseData).to.have.property('createdAt');\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Name and job are non-empty strings\", function () {\r",
+							"    const responseData = pm.response.json();\r",
+							"    \r",
+							"    pm.expect(responseData).to.be.an('object');\r",
+							"    pm.expect(responseData.name).to.be.a('string').and.to.have.lengthOf.at.least(1, \"Name should not be empty\");\r",
+							"    pm.expect(responseData.job).to.be.a('string').and.to.have.lengthOf.at.least(1, \"Job should not be empty\");\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"ID is a non-empty string\", function () {\r",
+							"    const responseData = pm.response.json();\r",
+							"    \r",
+							"    pm.expect(responseData.id).to.be.a('string').and.to.have.lengthOf.at.least(1, \"ID should be a non-empty string\");\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"CreatedAt is in a valid date format\", function () {\r",
+							"    const responseData = pm.response.json();\r",
+							"    \r",
+							"    pm.expect(responseData).to.be.an('object');\r",
+							"    pm.expect(responseData.createdAt).to.match(/^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}.\\d{3}Z$/, \"CreatedAt should be in a valid date format\");\r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"morpheus\",\r\n    \"job\": \"leader\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://reqres.in/api/users",
+					"protocol": "https",
+					"host": [
+						"reqres",
+						"in"
+					],
+					"path": [
+						"api",
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"\r",
+							"pm.test(\"Response status code is 204\", function () {\r",
+							"  pm.expect(pm.response.code).to.eql(204);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Content-Type header is 'text/xml'\", function () {\r",
+							"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"text/xml\");\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Response body is null\", function () {\r",
+							"  pm.expect(pm.response.text()).to.equal(\"null\");\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Verify user with ID 2 is deleted from the system\", function () {\r",
+							"    const responseData = xml2Json(pm.response.text());\r",
+							"    \r",
+							"    pm.expect(responseData).to.be.null;\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Ensure response does not contain sensitive information\", function () {\r",
+							"    const responseData = xml2Json(pm.response.text());\r",
+							"    \r",
+							"    pm.expect(responseData).to.be.null;\r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "https://reqres.in/api/users/2",
+					"protocol": "https",
+					"host": [
+						"reqres",
+						"in"
+					],
+					"path": [
+						"api",
+						"users",
+						"2"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
