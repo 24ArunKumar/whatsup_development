@@ -6,7 +6,7 @@ jobs:
     # defaults: 
     #   # run: 
     #   #   working-directory: test
-    environment: staging
+#    environment: staging
     name: "Run tests"
     runs-on: ubuntu-latest
     steps: 
@@ -14,4 +14,5 @@ jobs:
         run: |
          pwd
       - name: "Run tests"
-        run: "newman run postman_collection.json -e postman_environment.json -r htmlextra — reporter-htmlextra-export htmlreport.html  > runreport1.html"
+        run: "newman run postman_collection.json -e postman_env.json -r htmlextra — reporter-htmlextra-export htmlreport.html  > runreport1.html"
+
