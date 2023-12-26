@@ -3,13 +3,15 @@ on:
   workflow_dispatch:
 jobs: 
   test: 
-    defaults: 
-      run: 
-        working-directory: test
+    # defaults: 
+    #   # run: 
+    #   #   working-directory: test
     environment: staging
     name: "Run tests"
     runs-on: ubuntu-latest
     steps: 
-      - 
-        name: "Run tests"
+      - name: "Print working directory"
+        run: |
+         pwd
+      - name: "Run tests"
         run: "newman run Req.postman_collection.json -e Dev.postman_environment.json -r htmlextra — reporter-htmlextra-export htmlreport.html  > runreport1.html"
