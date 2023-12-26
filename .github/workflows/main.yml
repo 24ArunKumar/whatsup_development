@@ -13,12 +13,3 @@ jobs:
       - 
         name: "Run tests"
         run: "newman run DecReq.postman_collection.json ReqRes Dev.postman_environment.json -r htmlextra — reporter-htmlextra-export htmlreport.html  > runreport1.html"
-      
-      - name: Publish report
-        uses: MeilCli/slack-upload-file@v1
-        with:
-          slack_token: ${{ secrets.SLACK_TOKEN }}
-          file_path: './tests/htmlreport.html'
-          file_name: 'postmanReport.html'
-          file_type: 'html'
-          channels: 'api-test-reports'
