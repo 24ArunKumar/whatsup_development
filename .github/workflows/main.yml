@@ -13,7 +13,7 @@ jobs:
 
       # INstall Node on the runner
       - name: Install Node
-        # uses: actions/setup-node@v1
+        uses: actions/setup-node@v1
         with:
           node-version: "20"
 
@@ -23,22 +23,20 @@ jobs:
         run: |
           npm install -g newman
           npm install -g newman-reporter-htmlextra
-
-
+          
       # Make directory to upload the test results
-      # - name: Make Directory for results
-      #   run: mkdir -p testResults
+      - name: Make Directory for results
+        run: mkdir -p testResults
 
 
       # Run the POSTMAN collection
       - name: Run POSTMAN collection
         run: |
           newman run postman_collection.json
-
-
+          
       # Upload the contents of Test Results directory to workspace
-      # - name: Output the run Details
-      #   uses: actions/upload-artifact@v2
-      #   with:
-      #     name: RunReports
-      #     path: testResults
+      - name: Output the run Details
+        uses: actions/upload-artifact@v2
+        with:
+          name: RunReports
+          path: testResults
